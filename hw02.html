@@ -11,6 +11,23 @@
 <body>
   <h3>Use arrow keys to move the rectangle</h3>
   <canvas id="glCanvas" width="600" height="600"></canvas>
+
+  <!-- fallback shaders (파일 로드 실패 시 사용됨) -->
+  <script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec2 aPosition;
+    uniform vec2 uTranslation;
+    void main(void) {
+        gl_Position = vec4(aPosition + uTranslation, 0.0, 1.0);
+    }
+  </script>
+
+  <script id="fragment-shader" type="x-shader/x-fragment">
+    precision mediump float;
+    void main(void) {
+        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    }
+  </script>
+
   <script src="hw02.js"></script>
 </body>
 </html>
