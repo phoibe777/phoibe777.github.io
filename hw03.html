@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Homework 03 - Circle-Line Segment Intersection</title>
+    <style>
+        body { 
+            margin: 0; 
+            overflow: hidden; 
+            background-color: #000000; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh;
+        }
+        canvas { 
+            border: 1px solid #333; 
+            position: absolute;
+        }
+        /* 정보 표시를 왼쪽 상단으로 고정 */
+        #info { 
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #FFFFFF; 
+            font-family: 'Consolas', monospace; 
+            font-size: 16px; 
+            line-height: 1.5;
+            z-index: 10; /* 캔버스 위에 표시되도록 설정 */
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gl-canvas" width="700" height="700"></canvas>
+    <pre id="info">Waiting for circle input...</pre>
+    
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        attribute vec4 vPosition; 
+        uniform vec4 u_Color;    
+        varying vec4 fColor;     
+
+        void main() {
+            // vPosition.z (0:일반점, 1:교차점)을 이용해 gl_PointSize 설정
+            if (vPosition.z > 0.5) { 
+                gl_PointSize = 10.0; // 과제 요구사항
+            } else {
+                gl_PointSize = 1.0;
+            }
+            
+            gl_Position = vPosition;
+            fColor = u_Color;
+        }
+    </script>
+    
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        precision highp float;
+        varying vec4 fColor;
+
+        void main() {
+            gl_FragColor = fColor;
+        }
+    </script>
+
+    <script src="hw03.js"></script>
+</body>
+</html>
